@@ -256,21 +256,6 @@ export default function App() {
     return { total: users.length, sess, act, avgAcc: an ? as / an : 0, decks: decks.size };
   }, [users]);
 
-  if (!authed) {
-    return (
-      <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#0f172a"}}>
-        <form onSubmit={e => { e.preventDefault(); if (pw === APP_PASSWORD) { localStorage.setItem("dp_auth_exp", String(Date.now() + 3600000)); setAuthed(true); } else { setPwErr(true); setPw(""); }}}
-          style={{background:"#1e293b",padding:"2.5rem",borderRadius:16,display:"flex",flexDirection:"column",gap:"1rem",minWidth:320}}>
-          <h2 style={{color:"#f1f5f9",margin:0,textAlign:"center"}}>DiggyPop Advisor</h2>
-          <input type="password" value={pw} onChange={e => { setPw(e.target.value); setPwErr(false); }} placeholder="Enter password"
-            style={{padding:"0.75rem 1rem",borderRadius:8,border:pwErr?"2px solid #ef4444":"2px solid #334155",background:"#0f172a",color:"#f1f5f9",fontSize:"1rem",outline:"none"}} autoFocus />
-          {pwErr && <span style={{color:"#ef4444",fontSize:"0.85rem",textAlign:"center"}}>Incorrect password</span>}
-          <button type="submit" style={{padding:"0.75rem",borderRadius:8,border:"none",background:"#8B5CF6",color:"#fff",fontSize:"1rem",cursor:"pointer",fontWeight:600}}>Sign In</button>
-        </form>
-      </div>
-    );
-  }
-
   const deckPop = useMemo(() => {
     const c = {}; users.forEach(u => u.charades?.decks?.forEach(d => { c[d] = (c[d] || 0) + 1; }));
     return Object.entries(c).sort((a, b) => b[1] - a[1]);
@@ -288,6 +273,21 @@ export default function App() {
       .sort((a, b) => b.recs.filter(r => r.pri === "high").length - a.recs.filter(r => r.pri === "high").length)
       .slice(0, 8)
   , [users]);
+
+  if (!authed) {
+    return (
+      <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#0f172a"}}>
+        <form onSubmit={e => { e.preventDefault(); if (pw === APP_PASSWORD) { localStorage.setItem("dp_auth_exp", String(Date.now() + 3600000)); setAuthed(true); } else { setPwErr(true); setPw(""); }}}
+          style={{background:"#1e293b",padding:"2.5rem",borderRadius:16,display:"flex",flexDirection:"column",gap:"1rem",minWidth:320}}>
+          <h2 style={{color:"#f1f5f9",margin:0,textAlign:"center"}}>DiggyPop Advisor</h2>
+          <input type="password" value={pw} onChange={e => { setPw(e.target.value); setPwErr(false); }} placeholder="Enter password"
+            style={{padding:"0.75rem 1rem",borderRadius:8,border:pwErr?"2px solid #ef4444":"2px solid #334155",background:"#0f172a",color:"#f1f5f9",fontSize:"1rem",outline:"none"}} autoFocus />
+          {pwErr && <span style={{color:"#ef4444",fontSize:"0.85rem",textAlign:"center"}}>Incorrect password</span>}
+          <button type="submit" style={{padding:"0.75rem",borderRadius:8,border:"none",background:"#8B5CF6",color:"#fff",fontSize:"1rem",cursor:"pointer",fontWeight:600}}>Sign In</button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div style={{ minHeight: "100vh", fontFamily: "'DM Sans', -apple-system, sans-serif", background: "#f6f7fb" }}>
