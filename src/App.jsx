@@ -508,6 +508,19 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {/* PDF Preview Modal */}
+      {showPdf && (
+        <div onClick={() => setShowPdf(false)} style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div onClick={e => e.stopPropagation()} style={{ width: "95%", maxWidth: 1100, height: "93vh", background: "#1F2937", borderRadius: 16, border: "1px solid #374151", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 25px 60px rgba(0,0,0,0.5)" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px", borderBottom: "1px solid #374151" }}>
+              <span style={{ color: "#fff", fontWeight: 700, fontSize: 15, fontFamily: "'Space Grotesk', sans-serif" }}>📄 Recommendation Algorithm Documentation</span>
+              <button onClick={() => setShowPdf(false)} style={{ background: "#374151", border: "none", color: "#9CA3AF", width: 32, height: 32, borderRadius: 8, cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
+            </div>
+            <iframe src="/DiggyPop_Recommendation_Algorithm.pdf" style={{ flex: 1, border: "none", background: "#fff" }} title="Algorithm Documentation" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
