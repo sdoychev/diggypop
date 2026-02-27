@@ -221,14 +221,21 @@ const Chip = ({ name }) => {
 const APP_PASSWORD = "vpkCaIoaIHKkxK";
 
 export default function App() {
-  const [authed, setAuthed] = useState(() => sessionStorage.getItem("dp_auth") === "1");
+  const [authed, setAuthed] = useState(() => {
+    const exp = localStorage.getItem("dp_auth_exp");
+    return exp && Date.now() < Number(exp);
+  });
   const [pw, setPw] = useState("");
   const [pwErr, setPwErr] = useState(false);
+  const [sel, setSel] = useState(null);
+  const [search, setSearch] = useState("");
+  const [tab, setTab] = useState("overview");
+  const [showPdf, setShowPdf] = useState(false);
 
   if (!authed) {
     return (
       <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#0f172a"}}>
-        <form onSubmit={e => { e.preventDefault(); if (pw === APP_PASSWORD) { sessionStorage.setItem("dp_auth","1"); setAuthed(true); } else { setPwErr(true); setPw(""); }}}
+        <form onSubmit={e => { e.preventDefault(); if (pw === APP_PASSWORD) { localStorage.setItem("dp_auth_exp", String(Date.now() + 3600000)); setAuthed(true); } else { setPwErr(true); setPw(""); }}}
           style={{background:"#1e293b",padding:"2.5rem",borderRadius:16,display:"flex",flexDirection:"column",gap:"1rem",minWidth:320}}>
           <h2 style={{color:"#f1f5f9",margin:0,textAlign:"center"}}>DiggyPop Advisor</h2>
           <input type="password" value={pw} onChange={e => { setPw(e.target.value); setPwErr(false); }} placeholder="Enter password"
@@ -239,11 +246,6 @@ export default function App() {
       </div>
     );
   }
-
-  const [sel, setSel] = useState(null);
-  const [search, setSearch] = useState("");
-  const [tab, setTab] = useState("overview");
-  const [showPdf, setShowPdf] = useState(false);
 
   const profiles = useMemo(() => buildProfiles(), []);
   const users = useMemo(() => Object.values(profiles).sort((a, b) => {
