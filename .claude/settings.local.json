@@ -8,7 +8,10 @@
       "Bash(git add .gitignore src/App.jsx CLAUDE.md public/DiggyPop_Recommendation_Algorithm.pdf)",
       "Bash(git commit:*)",
       "Bash(git add .claude/)",
-      "Bash(git add src/App.jsx)"
+      "Bash(git add src/App.jsx)",
+      "Bash(vercel project ls)",
+      "Bash(openssl rand -base64 12)",
+      "Bash(vercel --prod --yes)"
     ]
   }
 }

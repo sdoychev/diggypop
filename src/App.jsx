@@ -218,7 +218,28 @@ const Chip = ({ name }) => {
 };
 
 // ─── Main ───
+const APP_PASSWORD = "vpkCaIoaIHKkxK";
+
 export default function App() {
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem("dp_auth") === "1");
+  const [pw, setPw] = useState("");
+  const [pwErr, setPwErr] = useState(false);
+
+  if (!authed) {
+    return (
+      <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#0f172a"}}>
+        <form onSubmit={e => { e.preventDefault(); if (pw === APP_PASSWORD) { sessionStorage.setItem("dp_auth","1"); setAuthed(true); } else { setPwErr(true); setPw(""); }}}
+          style={{background:"#1e293b",padding:"2.5rem",borderRadius:16,display:"flex",flexDirection:"column",gap:"1rem",minWidth:320}}>
+          <h2 style={{color:"#f1f5f9",margin:0,textAlign:"center"}}>DiggyPop Advisor</h2>
+          <input type="password" value={pw} onChange={e => { setPw(e.target.value); setPwErr(false); }} placeholder="Enter password"
+            style={{padding:"0.75rem 1rem",borderRadius:8,border:pwErr?"2px solid #ef4444":"2px solid #334155",background:"#0f172a",color:"#f1f5f9",fontSize:"1rem",outline:"none"}} autoFocus />
+          {pwErr && <span style={{color:"#ef4444",fontSize:"0.85rem",textAlign:"center"}}>Incorrect password</span>}
+          <button type="submit" style={{padding:"0.75rem",borderRadius:8,border:"none",background:"#8B5CF6",color:"#fff",fontSize:"1rem",cursor:"pointer",fontWeight:600}}>Sign In</button>
+        </form>
+      </div>
+    );
+  }
+
   const [sel, setSel] = useState(null);
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState("overview");
