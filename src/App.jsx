@@ -279,11 +279,17 @@ export default function App() {
               <p style={{ margin: 0, fontSize: 12, color: "#9CA3AF" }}>Usage analytics & play recommendations</p>
             </div>
           </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <a href="/DiggyPop_Recommendation_Algorithm.pdf" target="_blank" rel="noopener noreferrer"
+              style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 8, background: "#1F2937", color: "#A78BFA", fontSize: 13, fontWeight: 600, textDecoration: "none", transition: "all 0.15s", border: "1px solid #374151" }}>
+              <span style={{ fontSize: 15 }}>📄</span> Algorithm Docs
+            </a>
           <div style={{ display: "flex", gap: 4, background: "#1F2937", borderRadius: 10, padding: 3 }}>
             {["overview", "users"].map(v => (
               <button key={v} onClick={() => { setTab(v); if (v === "overview") setSel(null); }}
                 style={{ padding: "7px 18px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 600, textTransform: "capitalize", background: tab === v ? "#374151" : "transparent", color: tab === v ? "#fff" : "#6B7280", transition: "all 0.15s" }}>{v}</button>
             ))}
+          </div>
           </div>
         </div>
       </div>
