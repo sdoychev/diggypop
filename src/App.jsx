@@ -222,6 +222,7 @@ export default function App() {
   const [sel, setSel] = useState(null);
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState("overview");
+  const [showPdf, setShowPdf] = useState(false);
 
   const profiles = useMemo(() => buildProfiles(), []);
   const users = useMemo(() => Object.values(profiles).sort((a, b) => {
@@ -280,10 +281,10 @@ export default function App() {
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <a href="/DiggyPop_Recommendation_Algorithm.pdf" target="_blank" rel="noopener noreferrer"
-              style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 8, background: "#1F2937", color: "#A78BFA", fontSize: 13, fontWeight: 600, textDecoration: "none", transition: "all 0.15s", border: "1px solid #374151" }}>
+            <button onClick={() => setShowPdf(true)}
+              style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 8, background: "#1F2937", color: "#A78BFA", fontSize: 13, fontWeight: 600, cursor: "pointer", transition: "all 0.15s", border: "1px solid #374151" }}>
               <span style={{ fontSize: 15 }}>📄</span> Algorithm Docs
-            </a>
+            </button>
           <div style={{ display: "flex", gap: 4, background: "#1F2937", borderRadius: 10, padding: 3 }}>
             {["overview", "users"].map(v => (
               <button key={v} onClick={() => { setTab(v); if (v === "overview") setSel(null); }}

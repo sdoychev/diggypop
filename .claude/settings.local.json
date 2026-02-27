@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(vercel --version)",
+      "Bash(vercel whoami)",
+      "Bash(vercel --yes)",
+      "Bash(git status -u)",
+      "Bash(git add .gitignore src/App.jsx CLAUDE.md public/DiggyPop_Recommendation_Algorithm.pdf)",
+      "Bash(git commit:*)",
+      "Bash(git add .claude/)"
+    ]
+  }
+}
